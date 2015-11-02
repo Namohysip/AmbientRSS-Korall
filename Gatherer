@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Gatherer {
 
 	static ArrayList<URL> urls = null;
-	
+	static ArrayList<String> feeds = null;
 	/**
 	 * Sets all of the urls in the list at once
 	 * @param list
@@ -18,13 +18,11 @@ public class Gatherer {
 	/**
 	 * Meat of the class.
 	 * Gathers as individual Strings the current content of
-	 * each RSS feed from each URL
+	 * each RSS feed from each URL and updates the feeds array
 	 * @return
 	 */
-	public static String[] update(){
-		String[] feeds = null;
-		//gather Strings from the feeds
-		return feeds;
+	public static void update(){
+		
 	}
 	
 	/**
@@ -61,5 +59,9 @@ public class Gatherer {
 	public static URL getURL(int get){
 		//TODO: add error checking
 		return urls.get(get);
+	}
+	
+	public static ArrayList<String> getFeeds(){
+		return feeds;
 	}
 }
