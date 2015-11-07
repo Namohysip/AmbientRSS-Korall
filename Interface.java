@@ -1,6 +1,8 @@
+package main;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 
 import javax.swing.*;
@@ -19,7 +21,7 @@ public class Interface {
      */
     private static final int WIDTH = 300;
     private static final int HEIGHT = 300;
-    private int radius = 30;
+    private int radius = 100;
 
     // Holds the circles to redraw
     private List<MyCircle> circles;
@@ -31,11 +33,11 @@ public class Interface {
      */
     public void addCircles() {
 
-      circles.add(new MyCircle(135, 145, radius, Color.GREEN));
-      circles.add(new MyCircle(15, 30, radius , Color.BLUE));
-      circles.add(new MyCircle(250, 30, radius, Color.MAGENTA));
-      circles.add(new MyCircle(15, 250, radius, Color.RED));
-      circles.add(new MyCircle(250, 250, radius, Color.ORANGE));
+      circles.add(new MyCircle(150, 150, radius, Color.GREEN));
+      circles.add(new MyCircle(30, 30, radius , Color.BLUE));
+      circles.add(new MyCircle(150, 30, radius, Color.MAGENTA));
+      circles.add(new MyCircle(30, 150, radius, Color.RED));
+      circles.add(new MyCircle(90, 90, radius, Color.ORANGE));
       DrawingBoard.this.repaint();
     }
 
@@ -99,7 +101,7 @@ public class Interface {
 
   }
 
-  private static final int GAP = 5;
+  private static final int GAP = 1;
 
   private JPanel drawingBoard;
 
@@ -107,12 +109,13 @@ public class Interface {
   private void displayGUI() {
     JFrame frame = new JFrame("AmbientRSS - Korall");
     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+    frame.setUndecorated(true);
+    frame.setBackground(new Color(1.0f,1.0f,1.0f,0f));
     JPanel contentPane = new JPanel();
-
     drawingBoard = new DrawingBoard();
+    drawingBoard.setBackground(new Color(1.0f,1.0f,1.0f,0f));
     contentPane.add(drawingBoard);
-
+    contentPane.setBackground(new Color(1.0f,1.0f,1.0f,0f));
     frame.setContentPane(contentPane);
     frame.pack();
     frame.setVisible(true);
