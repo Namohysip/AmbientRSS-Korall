@@ -1,7 +1,10 @@
+package main;
+
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.awt.Desktop;
 import java.awt.Font;
 import java.io.InputStreamReader;
@@ -16,15 +19,27 @@ import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
 
-public class Driver {
+public class Test {
 
 	public static void main(String[] args) {
 		try {
-			URL feedUrl = new URL("http://www.npr.org/rss/rss.php");
+			URL feedUrl = new URL("http://rss.cnn.com/rss/cnn_topstories.rss");
+			
+			/**badURL crashes the program right now
+			 * taking it out removes the exception
+			*/
+			URL badURL = new URL("https://www.google.com/?gws_rd=ssl");
+			ArrayList<URL> urls = new ArrayList<URL>();
 
 			SyndFeedInput input = new SyndFeedInput();
 			SyndFeed feed = input.build(new XmlReader(feedUrl));
-			System.out.println(feed);
+			Gatherer gather = new Gatherer(feed);
+			
+			urls.add(feedUrl);
+			urls.add(badURL);
+			
+			gather.setURLs(urls);
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			System.out.println("ERROR: " + ex.getMessage());
