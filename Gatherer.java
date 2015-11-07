@@ -3,10 +3,12 @@ package main;
 import java.net.URL;
 import java.util.ArrayList;
 
+import com.sun.syndication.feed.synd.SyndFeed;
+
 public class Gatherer {
 
 	static ArrayList<URL> urls = null;
-	static ArrayList<String> feeds = null;
+	static ArrayList<SyndFeed> feeds = null;
 	/**
 	 * Sets all of the urls in the list at once
 	 * @param list
@@ -61,7 +63,7 @@ public class Gatherer {
 		return urls.get(get);
 	}
 	
-	public static ArrayList<String> getFeeds(){
+	public static ArrayList<SyndFeed> getFeeds(){
 		return feeds;
 	}
 }
