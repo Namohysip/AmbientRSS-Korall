@@ -12,7 +12,7 @@ import com.sun.syndication.io.XmlReader;
 public class Gatherer {
 
 	static ArrayList<URL> urls = null;
-	static ArrayList<SyndFeed> feeds = null;
+	static ArrayList<SyndFeed> feeds = new ArrayList<SyndFeed>();
 	static SyndFeed feed;
 	/**
 	 * Sets all of the urls in the list at once
@@ -32,26 +32,7 @@ public class Gatherer {
 		/**checks to make sure the URL is valid RSS before adding
 		 * removes it from the array if it isn't
 		 */
-		
-		for(int i = 0; i < urls.size(); i++){
 			
-			SyndFeedInput input = new SyndFeedInput();
-			SyndFeed feed = null;
-			try {
-				feed = input.build(new XmlReader(urls.get(i)));
-				
-				if(!feed.getFeedType().contains("rss")){
-					
-					urls.remove(i);
-					
-				}
-				
-			} catch (Exception e) {
-				
-				e.printStackTrace();
-			}
-			
-		}
 	}
 	
 	/**
