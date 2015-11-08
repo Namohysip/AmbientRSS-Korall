@@ -5,8 +5,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 
+import com.sun.syndication.feed.synd.SyndEntryImpl;
 import com.sun.syndication.feed.synd.SyndFeed;
 
 public class Interpreter {
@@ -24,13 +24,13 @@ public class Interpreter {
 		}
 		for(int i = 0; i < info.size(); i++){ //for each feed
 			ArrayList<String> feed = new ArrayList<String>();
-			List<SyndFeed> entries = info.get(i).getEntries(); //get all entries for the feed
-			for (SyndFeed f : entries){ //for each entry
+			List<SyndEntryImpl> entries = info.get(i).getEntries(); //get all entries for the feed
+			for (SyndEntryImpl f : entries){ //for each entry
 				if (f.getPublishedDate().after(lastRead.get(i))){ //if it was published after the last check by the user
 					
 				    try {
 						links.get(i).add(new URL(f.getLink())); //add the link first, so if it's a bad link, information isn't added without a link
-						information.get(i).add(f.getDescription()); //add the description of the link
+						information.get(i).add(f.getDescription().getValue()); //add the description of the link
 					} catch (MalformedURLException e) {
 						//do nothing and skip to the next entry if bad url
 					}
@@ -59,5 +59,12 @@ public class Interpreter {
 	
 	public static ArrayList<URL> getLinks(int feed){
 		return links.get(feed);
+	}
+	
+	public static void newFeed(){
+		links.add(new ArrayList<URL>());
+		information.add(new ArrayList<String>());
+		Date d = new Date();
+		lastRead.add(new Date(d.getTime() - 86400000l));
 	}
 }
