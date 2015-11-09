@@ -44,7 +44,7 @@ public class Gatherer {
 	public static void update(){
 		
 		//loop through urls ArrayList and generate SyndFeeds to be stored in feeds array
-		
+		feeds.clear();
 		for(int i = 0; i < urls.size(); i++){
 			
 			SyndFeedInput input = new SyndFeedInput();
