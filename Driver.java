@@ -15,8 +15,17 @@ public class Driver {
 			System.out.println("Enter RSS url:");
 			String result = scan.nextLine();
 			System.out.println("How many seconds between updates?");
-			int cycleTime = scan.nextInt();
-			scan.nextLine();
+			boolean invalid = true;
+			int cycleTime = 0;
+			while (invalid) {
+				try {
+					cycleTime = scan.nextInt();
+					scan.nextLine();
+					invalid = false;
+				} catch (Exception e) {
+					scan.nextLine();
+				}
+			}
 			list.add(new URL(result));
 			Gatherer.setURLs(list);
 			Interpreter.newFeed();
@@ -27,11 +36,12 @@ public class Driver {
 
 				System.out.println("New entries found: "
 						+ Interpreter.HowManyEntries(0));
-				/* for (int i = 0; i < Interpreter.getInfo().get(0).size(); i++) {
-					scan.nextLine();
-					System.out.println(Interpreter.getInfo().get(0).get(i));
-					System.out.println(Interpreter.getLinks(0).get(i));
-				} */
+				/*
+				 * for (int i = 0; i < Interpreter.getInfo().get(0).size(); i++)
+				 * { scan.nextLine();
+				 * System.out.println(Interpreter.getInfo().get(0).get(i));
+				 * System.out.println(Interpreter.getLinks(0).get(i)); }
+				 */
 			}
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
