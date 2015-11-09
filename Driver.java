@@ -14,24 +14,38 @@ public class Driver {
 		try {
 			System.out.println("Enter RSS url:");
 			String result = scan.nextLine();
+			System.out.println("How many seconds between updates?");
+			int cycleTime = scan.nextInt();
+			scan.nextLine();
 			list.add(new URL(result));
 			Gatherer.setURLs(list);
 			Interpreter.newFeed();
-			System.out.println("Gathering info...");
-			Interpreter.setInfo();
 
-			System.out.println("Entries found: "
-					+ Interpreter.getInfo().get(0).size());
-			for(int i = 0; i < Interpreter.getInfo().get(0).size(); i++){
-				scan.nextLine();
-				System.out.println(Interpreter.getInfo().get(0).get(i));
-				System.out.println(Interpreter.getLinks(0).get(i));
+			while (true) {
+				System.out.println("Gathering info...");
+				refresher(cycleTime * 1000);
+
+				System.out.println("New entries found: "
+						+ Interpreter.HowManyEntries(0));
+				/* for (int i = 0; i < Interpreter.getInfo().get(0).size(); i++) {
+					scan.nextLine();
+					System.out.println(Interpreter.getInfo().get(0).get(i));
+					System.out.println(Interpreter.getLinks(0).get(i));
+				} */
 			}
-			scan.close();
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Bad url!");
 		}
+		scan.close();
+	}
 
+	public static void refresher(long cycle) {
+		long lastCheck = System.currentTimeMillis();
+		while (lastCheck + cycle > System.currentTimeMillis()) {
+
+		}
+		Interpreter.setInfo();
+		Interpreter.setDate(new Date(), 0);
 	}
 }
