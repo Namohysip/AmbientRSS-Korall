@@ -19,12 +19,11 @@ public class Interpreter {
 	public static void setInfo(){
 		Gatherer.update(); //updates Gatherer for latest information
 		ArrayList<SyndFeed> info = Gatherer.getFeeds(); //gets latest info
-		for(ArrayList<String> i: information){ //clears out each feed's information from last update
-			i.clear();
-		}
+		information.clear();
 		for(int i = 0; i < info.size(); i++){ //for each feed
 			ArrayList<String> feed = new ArrayList<String>();
 			List<SyndEntryImpl> entries = info.get(i).getEntries(); //get all entries for the feed
+			information.add(new ArrayList<String>());
 			for (SyndEntryImpl f : entries){ //for each entry
 				if (f.getPublishedDate().after(lastRead.get(i))){ //if it was published after the last check by the user
 					
@@ -36,8 +35,6 @@ public class Interpreter {
 					}
 				}
 			}
-			
-			information.add(feed);
 		}
 	}
 	
@@ -66,5 +63,9 @@ public class Interpreter {
 		information.add(new ArrayList<String>());
 		Date d = new Date();
 		lastRead.add(new Date(d.getTime() - 86400000l));
+	}
+	
+	public static int HowManyEntries(int i){
+		return information.get(i).size();
 	}
 }
