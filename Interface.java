@@ -100,9 +100,7 @@ public class Interface {
 			radius = Interpreter.HowManyEntries(feed);
 			x = trueX - radius / 4;
 			y = trueY - radius / 4;
-			if(radius < 1){
-				radius = 1;
-			}
+			
 		}
 
 		public void setRadius(int i) {
@@ -131,7 +129,9 @@ public class Interface {
 			g.setColor(backgroundColour);
 			g.fillOval(x, y, radius, radius);
 			g.setColor(new Color(0,0,0,0.1f));
-			g.drawString(titles[feed], x+radius/4, (int) (y+radius/1.5));
+		    if(radius > 0){
+		    	g.drawString(titles[feed], x+radius/4, (int) (y+radius/1.5));
+		    }
 		}
 
 	}
