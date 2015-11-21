@@ -12,11 +12,20 @@ public class HeadlineList extends JPanel {
 
 	private ArrayList<String> entries = null;
 	private ArrayList<URL> links = null;
+	private int feed = -1;
 
+	public ArrayList<String> getEntries(){
+		return entries;
+	}
+	
+	public ArrayList<URL> getLinks(){
+		return links;
+	}
 	public HeadlineList(int feed) {
 		super();
 		entries = Interpreter.getEntries(feed);
 		links = Interpreter.getLinks(feed);
+		this.feed = feed;
 	}
 
 	/**
@@ -24,8 +33,13 @@ public class HeadlineList extends JPanel {
 	 */
 	protected void paintComponent(Graphics g) {
 		g.setColor(Color.BLACK);
-		g.drawString(entries.get(0), 50, 50);
-		System.out.println(entries.get(0));
+		for(int i = 0; i < entries.size(); i++){
+			String entry = entries.get(i);
+			if (entry.length() > 70){
+				entry = entry.substring(0, 67) + "...";
+			}
+			g.drawString(entry, 10, 20*i + 40);
+		}
 	}
 
 	public Dimension getPreferredSize() {
