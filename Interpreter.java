@@ -20,10 +20,12 @@ public class Interpreter {
 		Gatherer.update(); //updates Gatherer for latest information
 		ArrayList<SyndFeed> info = Gatherer.getFeeds(); //gets latest info
 		information.clear();
+		links.clear();
 		for(int i = 0; i < info.size(); i++){ //for each feed
 			ArrayList<String> feed = new ArrayList<String>();
 			List<SyndEntryImpl> entries = info.get(i).getEntries(); //get all entries for the feed
 			information.add(new ArrayList<String>());
+			links.add(new ArrayList<URL>());
 			for (SyndEntryImpl f : entries){ //for each entry
 				if (f.getPublishedDate().after(lastRead.get(i))){ //if it was published after the last check by the user
 					
