@@ -1,6 +1,8 @@
 package main;
 
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -38,6 +40,12 @@ public class Interface {
 		frame.setTitle("Multi-News-Network");
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(0, dim.height/2-frame.getSize().height/2);
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e){
+				System.exit(0);
+			}
+		});
 		frame.setVisible(true);
 	}
 
@@ -69,10 +77,14 @@ public class Interface {
 		};
 		EventQueue.invokeLater(runnable);
 		while (true) {
-			refresher(1 * 1000);
+			try { refresher(600 * 1000);
 			//drawingBoard.repaint();
 			drawingBoard.setVisible(false);
 			drawingBoard.setVisible(true);
+			}
+			catch(Exception e){
+				
+			}
 		}
 
 	}
