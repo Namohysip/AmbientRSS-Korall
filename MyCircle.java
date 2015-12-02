@@ -15,10 +15,15 @@ class MyCircle {
 		private String[] titles = {"HNN","NPR","BBC","CNN"};
 
 		public void updateCircles() {
-			radius = Interpreter.HowManyEntries(feed);
+			radius = Interpreter.HowManyEntries(feed) * 3;
+			if(radius < 10){
+				if (radius != 0){
+					radius = 10;
+				}
+			}
 			x = trueX - radius / 4;
 			y = trueY - radius / 4;
-			
+			backgroundColour = new Color(backgroundColour.getRed() / 255f, backgroundColour.getGreen() / 255f, backgroundColour.getBlue() / 255f, (float) radius / 200f);
 		}
 
 		public void setRadius(int i) {
