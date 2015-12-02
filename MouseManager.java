@@ -11,10 +11,12 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.ConnectException;
 import java.util.Date;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /**
  * @author Noah Higa
@@ -31,39 +33,21 @@ public class MouseManager implements MouseListener, MouseMotionListener {
 	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		int height = Interface.getDrawingBoard().getHeight();
-		int width = Interface.getDrawingBoard().getWidth();
 		System.out.println("Mouse clicked!");
 		if (!active) {
-			if (e.getX() < width / 2) {
-				if (e.getY() < height / 2) {
-					// do stuff with the blue circle
-					System.out.println("Clicked on NPR!");
-					Interpreter.setDate(new Date(), 1);
-
-					displayList(1);
-				} else {
-
-					System.out.println("Clicked on CNN!");
-					Interpreter.setDate(new Date(), 3);
-
-					displayList(3);
-				}
-			} else {
-				if (e.getY() < height / 2) {
-					// do stuff with the magenta circle
-
-					System.out.println("Clicked on BBC!");
-					Interpreter.setDate(new Date(), 2);
-
-					displayList(2);
-				} else {
-					// do stuff with the green circle
-					Interpreter.setDate(new Date(), 0);
-					System.out.println("Clicked on HNN!");
-					displayList(0);
-
-				}
+			int circle = (e.getY() - 16) / 100;
+			if (circle < 0) {
+				circle = 0;
+			}
+			else if(circle > 3){
+				circle = 3;
+			}
+			Interpreter.setDate(new Date(), circle);
+			displayList(circle);
+			try {
+				Interface.refresher(0);
+			} catch (Exception ex) {
+				//do nothing
 			}
 		}
 		active = true;
@@ -78,7 +62,7 @@ public class MouseManager implements MouseListener, MouseMotionListener {
 		frame.setContentPane(list);
 		frame.pack();
 		frame.addMouseListener(new MouseManager());
-		frame.setAlwaysOnTop(true);
+		frame.setAlwaysOnTop(false);
 		frame.setTitle("New Stories");
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		frame.setLocation(dim.width / 2 - frame.getSize().width / 2, dim.height
@@ -93,6 +77,7 @@ public class MouseManager implements MouseListener, MouseMotionListener {
 				frame.dispose();
 			}
 		});
+		Interface.getDrawingBoard().setRadius(feed, 1);
 		frame.setVisible(true);
 	}
 
