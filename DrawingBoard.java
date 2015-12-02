@@ -18,8 +18,8 @@ import javax.swing.JPanel;
 		 * The height and width of the window, currently set at 300, 300. May be
 		 * resized in the future.
 		 */
-		private static final int WIDTH = 150;
-		private static final int HEIGHT = 150;
+		private static final int WIDTH = 100;
+		private static final int HEIGHT = 500;
 		private int radius = 10;
 
 		public int getWindowWidth() {
@@ -39,10 +39,10 @@ import javax.swing.JPanel;
 		 */
 		public void addCircles() {
 
-			circles.add(new MyCircle(100, 100, radius, new Color(0,1,0,0.1f),0));
-			circles.add(new MyCircle(15, 15, radius, new Color(0,0,1,0.1f),1));
-			circles.add(new MyCircle(100, 15, radius, new Color(1,1,0,0.1f),2));
-			circles.add(new MyCircle(15, 100, radius, new Color(1,0,0,0.1f),3));
+			circles.add(new MyCircle(15, 15, radius, new Color(0,1,0,0.1f),0));
+			circles.add(new MyCircle(15, 115, radius, new Color(0,0,1,0.1f),1));
+			circles.add(new MyCircle(15, 215, radius, new Color(1,1,0,0.1f),2));
+			circles.add(new MyCircle(15, 315, radius, new Color(1,0,0,0.1f),3));
 			// circles.add(new MyCircle(90, 90, radius, Color.ORANGE));
 		}
 
@@ -79,5 +79,8 @@ import javax.swing.JPanel;
 		
 		public void setRadius(int circle, int r){
 			circles.get(circle).setRadius(r);
+			revalidate();
+			setVisible(false);
+			setVisible(true);
 		}
 	}
