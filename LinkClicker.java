@@ -13,8 +13,8 @@ public class LinkClicker implements MouseListener {
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getY() < ((list.getLinks().size() + 1) * 20) + 40 && e.getY() > 60){
-			launchLink(((e.getY() - 40) / 20) - 1);
+		if(e.getY() < ((list.getLinks().size() + 1) * 25) + 40 && e.getY() > 60){
+			launchLink(((e.getY() - 40) / 25) - 1);
 		}
 
 	}
