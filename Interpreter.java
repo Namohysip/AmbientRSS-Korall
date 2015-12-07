@@ -1,5 +1,6 @@
 package main;
 
+import java.net.ConnectException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class Interpreter {
 	static ArrayList<Date> lastRead = new ArrayList<Date>();
 	static ArrayList<Integer> lastReadEntry = new ArrayList<Integer>();
 	
-	public static void setInfo(){
+	public static void setInfo() throws ConnectException{
 		Gatherer.update(); //updates Gatherer for latest information
 		ArrayList<SyndFeed> info = Gatherer.getFeeds(); //gets latest info
 		information.clear();
@@ -27,7 +28,7 @@ public class Interpreter {
 			information.add(new ArrayList<String>());
 			links.add(new ArrayList<URL>());
 			for (SyndEntryImpl f : entries){ //for each entry
-				if (f.getPublishedDate().after(lastRead.get(i))){ //if it was published after the last check by the user
+				if (f.getPublishedDate().after(lastRead.get(i)) && information.get(i).size() < 30){ //if it was published after the last check by the user
 					
 				    try {
 						links.get(i).add(new URL(f.getLink())); //add the link first, so if it's a bad link, information isn't added without a link
